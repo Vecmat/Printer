@@ -1,0 +1,39 @@
+{
+    "compileOnSave": true,
+    "compilerOptions": {
+        "baseUrl": "./",
+        "rootDir": "./src",
+        "outDir": "./dist",
+        "target": "ES2021",
+        "module": "commonjs",
+        "allowJs": true,
+        "sourceMap": true,
+        "declaration": true,
+        "skipLibCheck": true,
+        "importHelpers": true,
+        "removeComments": false,
+        "noImplicitAny": false,
+        "esModuleInterop": true,
+        "moduleResolution": "node",
+        "typeRoots": ["./typings"],
+        "preserveConstEnums": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "lib": [
+            "es6",
+            "dom",
+            "es7"
+        ],
+        "paths": {
+            "~/*":["src/*"]
+        }
+    },
+    "include": [
+        "src/**/*.ts"
+    ],
+    "exclude": [
+        "libs",
+        "typeings",
+        "node_modules"
+    ]
+}

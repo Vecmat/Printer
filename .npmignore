@@ -1,0 +1,8 @@
+/test
+/todo
+/npm-debug.log
+/benchmark
+/src
+.DS_Store
+Thumbs.db
+Desktop.ini
