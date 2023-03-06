@@ -1,9 +1,7 @@
-/*
- * @Description:
- * @Usage:
- * @Author: Vecmat
- * @Date: 2022-03-21 13:14:21
- * @LastEditTime: 2022-03-21 13:14:21
+/**
+ * @ Author: Hanrea
+ * @ version: 2022-03-21 13:14:21
+ * @ copyright: Vecmat (c) - <hi(at)vecmat.com>
  */
 import { ILogger } from "./interface";
 import { Logger } from "./logger";
