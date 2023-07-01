@@ -3,8 +3,7 @@
  * @ version: 2022-03-21 13:14:21
  * @ copyright: Vecmat (c) - <hi(at)vecmat.com>
  */
-import { inspect } from "util";
-import { Helper } from "@vecmat/vendor";
+import lodash from "lodash";
 
 export interface ShieldFieldRes {
     res: string;
@@ -76,7 +75,7 @@ export function ShieldLog(splat: any, fields: Set<string>, keyName?: string): an
         return splat;
     }
 
-    if (Helper.isError(splat)) {
+    if (lodash.isError(splat)) {
         return splat.message;
     }
 

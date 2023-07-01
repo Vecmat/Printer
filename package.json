@@ -1,9 +1,9 @@
 {
     "name": "@vecmat/printer",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "",
     "main": "./dist/index.js",
-    "types": "./dist/index.d.ts" ,
+    "types": "./dist/index.d.ts",
     "exports": {
         "require": "./dist/index.js",
         "import": "./dist/index.mjs"
@@ -14,22 +14,23 @@
         "clean": "rm -rf dist",
         "test": "yarn build:test && npx mocha test",
         "build": "yarn clean && yarn compile && npx gulp copy",
-        "compile":"tsc --project tsconfig.json && tsc-alias -p tsconfig.json",
+        "compile": "tsc --project tsconfig.json && tsc-alias -p tsconfig.json",
         "deploy": "yarn build && npm publish ./dist --registry https://npm.vecmat.cc",
-        "watch":"concurrently \"tsc -w --project tsconfig.json\" \"tsc-alias -w --project tsconfig.json\""
+        "watch": "concurrently \"tsc -w --project tsconfig.json\" \"tsc-alias -w --project tsconfig.json\""
     },
     "dependencies": {
-        "@types/node": "~18.11.18",
-        "@vecmat/vendor": "workspace:*",
         "lodash": "~4.17.21",
         "winston": "^3.8.2",
+        "@types/node": "^18.0.0",
         "winston-transport": "~4.5.0",
         "winston-daily-rotate-file": "~4.7.1"
     },
     "devDependencies": {
-        "tslib":"~2.4.0",
+        "tslib": "~2.4.0",
         "gulp": "^4.0.2",
         "gulp-add-src": "^1.0.0",
-        "gulp-cli": "^2.3.0"
+        "gulp-cli": "^2.3.0",
+        "tsc-alias": "~1.8.2",
+        "typescript": "^5.x.x"
     }
 }
