@@ -2,12 +2,12 @@
     "compileOnSave": true,
     "compilerOptions": {
         "baseUrl": "./",
-        "rootDir": "./src",
-        "outDir": "./dist",
+        "rootDir": "src",
+        "outDir": "./dist/src/",
         "target": "ES2021",
         "module": "commonjs",
         "allowJs": true,
-        "sourceMap": true,
+        "sourceMap": false,
         "declaration": true,
         "skipLibCheck": true,
         "importHelpers": true,
@@ -22,7 +22,8 @@
         "lib": [
             "es6",
             "dom",
-            "es7"
+            "es7",
+            "ESNext"
         ],
         "paths": {
             "~/*":["src/*"]
