@@ -1,36 +1,38 @@
 {
     "name": "@vecmat/printer",
-    "version": "0.0.3",
-    "description": "",
-    "main": "./dist/index.js",
-    "types": "./dist/index.d.ts",
-    "exports": {
-        "require": "./dist/index.js",
-        "import": "./dist/index.mjs"
-    },
     "author": "Hanrea",
+    "version": "0.0.11",
+    "description": "printer  打印机",
     "license": "ISC",
-    "scripts": {
-        "clean": "rm -rf dist",
-        "test": "yarn build:test && npx mocha test",
-        "build": "yarn clean && yarn compile && npx gulp copy",
-        "compile": "tsc --project tsconfig.json && tsc-alias -p tsconfig.json",
-        "deploy": "yarn build && npm publish ./dist --registry https://npm.vecmat.cc",
-        "watch": "concurrently \"tsc -w --project tsconfig.json\" \"tsc-alias -w --project tsconfig.json\""
+    "main": "./src/index.ts",
+    "types": "./src/index.ts",
+    "publishConfig": {
+        "access": "public",
+        "main": "./index.js",
+        "types": "./index.d.ts"
     },
-    "dependencies": {
-        "lodash": "~4.17.21",
-        "winston": "^3.8.2",
-        "@types/node": "^18.0.0",
-        "winston-transport": "~4.5.0",
-        "winston-daily-rotate-file": "~4.7.1"
-    },
-    "devDependencies": {
-        "tslib": "~2.4.0",
-        "gulp": "^4.0.2",
-        "gulp-add-src": "^1.0.0",
-        "gulp-cli": "^2.3.0",
-        "tsc-alias": "~1.8.2",
-        "typescript": "^5.x.x"
-    }
+  "scripts": {
+    "clean": "rm -rf dist",
+    "test": "yarn build:test && npx mocha test",
+    "build": "yarn clean && yarn compile && npx gulp copy",
+    "compile": "tsc --project tsconfig.json && tsc-alias -p tsconfig.json",
+    "deploy": "yarn build && npm publish ./dist ",
+    "watch": "concurrently \"tsc -w --project tsconfig.json\" \"tsc-alias -w --project tsconfig.json\""
+  },
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "winston": "^3.8.2",
+    "@types/node": "^18.x.x",
+    "@types/lodash": "^4.14.195",
+    "winston-transport": "~4.5.0",
+    "winston-daily-rotate-file": "~4.7.1"
+  },
+  "devDependencies": {
+    "tslib": "^2.4.1",
+    "gulp": "^4.0.2",
+    "gulp-add-src": "^1.0.0",
+    "gulp-cli": "^2.3.0",
+    "tsc-alias": "~1.8.2",
+    "typescript": "~4.9.5"
+  }
 }
