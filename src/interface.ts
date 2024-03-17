@@ -11,7 +11,7 @@ export type LogColor = "white" | "blue" | "yellow" | "red";
 export type LogType = "File" | "Console" | "ESLOG";
 
 // 日志级别
-export type LogLevelType = "debug" | "info" | "warning" | "error";
+export type LogLevelType = "debug" | "info" | "warn" | "error";
 
 /**
  * Logger interface

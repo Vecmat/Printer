@@ -3,21 +3,22 @@
  * @ version: 2022-03-21 13:14:21
  * @ copyright: Vecmat (c) - <hi(at)vecmat.com>
  */
-import util from "util";
-import path from "node:path";
-import { merge } from "lodash";
-import { ShieldLog } from "./shield";
-import { ILogger, LogType, LogLevelType } from "./interface";
-import DailyRotateFile from "winston-daily-rotate-file";
-import TransportStream, * as Transport from "winston-transport";
-import { format, Logger as winLogger, transports, createLogger } from "winston";
+import * as  util from "util";
+import * as path from "node:path";
+import { default as lodash } from "lodash";
+import { ShieldLog } from "./shield.js";
+import { ILogger, LogType, LogLevelType } from "./interface.js";
+import { default as DailyRotateFile } from "winston-daily-rotate-file";
+import  * as Transport from "winston-transport";
+import { default as TransportStream } from "winston-transport";
+import { format, Logger , transports, createLogger } from "winston";
 
 const { combine, timestamp, label, printf } = format;
 //
-const LogLevelObj: any = {
+const LogLevelObj: Record<string, number> = {
     debug: 7,
     info: 6,
-    warning: 4,
+    warn: 4,
     error: 3
 };
 
@@ -60,11 +61,11 @@ export interface LoggerInstance {
 }
 
 /**
- * Logger
+ * VMLogger
  *
- * @class Logger
+ * @class VMLogger
  */
-export class Logger implements ILogger {
+export class VMLogger implements ILogger {
     // 默认打开日志
     private enableLog = true;
     // 文件日志目录
@@ -77,20 +78,20 @@ export class Logger implements ILogger {
     private sensFields: Set<string> = new Set();
 
     // 日志对象
-    private logger: winLogger;
+    private logger: Logger;
     private emptyObj: any = {};
     // private transports: LogTrans = {};
-    private fileTrans: DailyRotateFile = null;
-    private termTrans: transports.ConsoleTransportInstance = null;
+    private fileTrans?: DailyRotateFile ;
+    private termTrans?: transports.ConsoleTransportInstance ;
 
     /**
      * Creates an instance of Logger.
      * @param {LoggerOption} [opt]
-     * @memberof Logger
+     * @memberof VMLogger
      */
     constructor(opt?: LoggerOption) {
         // default < params < env < update
-        this.option = merge(defaultOption, opt);
+        this.option = lodash.merge(defaultOption, opt);
         // 日志目录
         if (process.env.LOGS_PATH) {
             this.logFileDir = process.env.LOGS_PATH;
@@ -98,8 +99,8 @@ export class Logger implements ILogger {
         // 日志等级
         const level = (process.env.LOGS_LEVEL || "").toLowerCase();
         if (level && LogLevelObj[level]) {
-            this.option.File.level = level;
-            this.option.Console.level = level;
+            this.option.File!.level = level;
+            this.option.Console!.level = level;
         }
         this.logger = this.buildLogger();
     }
@@ -111,7 +112,7 @@ export class Logger implements ILogger {
     public update(opt?: LoggerOption) {
         this.logger.close();
         // 更新配置
-        this.option = merge(this.option, opt);
+        this.option = lodash.merge(this.option, opt);
         this.logger = this.buildLogger();
     }
 
@@ -119,14 +120,14 @@ export class Logger implements ILogger {
      * buildLogger
      * @returns
      */
-    private buildLogger(): winLogger {
+    private buildLogger(): Logger {
         const trans: TransportStream[] = [];
         // output type trans
         if (!(this.option.output instanceof Set)) {
             this.option.output = new Set(this.option.output);
         }
         if (this.option.output.has("File")) {
-            this.option.File.filename = path.join(this.logFileDir || "./logs/", "log-%DATE%.log");
+            this.option.File!.filename = path.join(this.logFileDir || "./logs/", "log-%DATE%.log");
             this.fileTrans = new DailyRotateFile(this.option.File);
             trans.push(this.fileTrans);
         }
@@ -175,7 +176,7 @@ export class Logger implements ILogger {
      * log Debug
      *
      * @returns {*}
-     * @memberof Logger
+     * @memberof VMLogger
      */
     public Debug(...args: any[]) {
         return this.printLog("debug", "", args);
@@ -185,7 +186,7 @@ export class Logger implements ILogger {
      * log Info
      *
      * @returns {*}
-     * @memberof Logger
+     * @memberof VMLogger
      */
     public Info(...args: any[]) {
         return this.printLog("info", "", args);
@@ -195,17 +196,17 @@ export class Logger implements ILogger {
      * log Warn
      *
      * @returns {*}
-     * @memberof Logger
+     * @memberof VMLogger
      */
     public Warn(...args: any[]) {
-        return this.printLog("warning", "", args);
+        return this.printLog("warn", "", args);
     }
 
     /**
      * log Error
      *
      * @returns {*}
-     * @memberof Logger
+     * @memberof VMLogger
      */
     public Error(...args: any[]) {
         return this.printLog("error", "", args);
@@ -222,7 +223,7 @@ export class Logger implements ILogger {
      *
      * @param {...any[]} args
      * @returns {*}
-     * @memberof Logger
+     * @memberof VMLogger
      */
     public Log(name: LogLevelType | string, ...args: any[]) {
         // tslint:disable-next-line: one-variable-per-declaration
@@ -241,7 +242,7 @@ export class Logger implements ILogger {
      * @param {LogLevelType} level
      * @param {string} name
      * @param {any[]|string} args
-     * @memberof Logger
+     * @memberof VMLogger
      */
     private printLog(level: LogLevelType, name: string, args: any[]) {
         try {
@@ -255,8 +256,25 @@ export class Logger implements ILogger {
             } else {
                 args.unshift(`${name}:`);
             }
+            switch (level) {
+                // "debug" | "info" | "warn" | "error"
+                case "debug":
+                    this.logger.debug(args);
+                    break;
+                case "info":
+                    this.logger.info(args);
+                    break;
+                case "warn":
+                    this.logger.warn(args);
+                    break;
+                case "error":
+                    this.logger.error(args);
+                    break;
+                default:
+                    this.logger.info(args);
+                    break;
+            }
 
-            this.logger[level](args);
         } catch (e) {
             console.error(e);
         }
@@ -271,7 +289,7 @@ export class Logger implements ILogger {
      * @param {string} timestamp
      * @param {any[]|string} args
      * @returns {string}
-     * @memberof Logger
+     * @memberof VMLogger
      */
     private format(level: string, label: string, timestamp: string, args: any[] | string): string {
         try {

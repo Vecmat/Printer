@@ -1,39 +1,13 @@
 {
-    "compileOnSave": true,
+    "extends": "@silverhand/ts-config/tsconfig.base",
     "compilerOptions": {
-        "baseUrl": "./",
-        "rootDir": "./src",
-        "outDir": "./dist",
-         "target": "ES2017",
-        "module": "commonjs",
-        "allowJs": true,
-        "sourceMap": true,
+        "rootDir": "src",
+        "outDir": "libs",
         "declaration": true,
-        "skipLibCheck": true,
-        "importHelpers": true,
-        "removeComments": false,
-        "noImplicitAny": false,
+        "noImplicitThis": false,
         "esModuleInterop": true,
-        "moduleResolution": "node",
-        "typeRoots": ["./typings"],
-        "preserveConstEnums": true,
-        "emitDecoratorMetadata": true,
-        "experimentalDecorators": true,
-        "lib": [
-            "es6",
-            "dom",
-            "es7"
-        ],
-        "paths": {
-            "~/*":["src/*"]
-        }
+        "types": ["node", "jest", "jest-matcher-specific-error"]
     },
-    "include": [
-        "src/**/*.ts"
-    ],
-    "exclude": [
-        "libs",
-        "typeings",
-        "node_modules"
-    ]
+    "include": ["src", "jest.config.ts", "rollup.config.ts"],
+    "exclude": ["src/**/*.test.ts"]
 }

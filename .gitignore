@@ -1,5 +1,6 @@
 # 子目录复制
 dist/
+libs/
 # Logs
 *.log
 npm-debug.log*

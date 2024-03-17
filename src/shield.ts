@@ -3,7 +3,7 @@
  * @ version: 2022-03-21 13:14:21
  * @ copyright: Vecmat (c) - <hi(at)vecmat.com>
  */
-import lodash from "lodash";
+import * as lodash from "lodash";
 
 export interface ShieldFieldRes {
     res: string;
@@ -80,7 +80,8 @@ export function ShieldLog(splat: any, fields: Set<string>, keyName?: string): an
     }
 
     if (typeof splat !== "object") {
-        if (fields.has(keyName)) {
+        // if (fields.has(keyName)) {
+        if (keyName && fields.has(keyName)) {
             return ShieldField(splat).res;
         }
         return `${splat}`;
