@@ -298,8 +298,10 @@ export class VMLogger implements ILogger {
             if (level === "debug") {
                 // 只有将logger拆分成独立的包才能正确分割错误栈
                 Error.captureStackTrace(this.emptyObj);
-                const matchResult = this.emptyObj.stack.slice(this.emptyObj.stack.lastIndexOf("printer")).match(/\(.*?\)/g) || [];
-                params.push(matchResult.join("  "));
+                let stack = this.emptyObj.stack.slice(this.emptyObj.stack.lastIndexOf("printer"));
+                let matchs = stack.match(/\(.*?\)/g) || []
+                matchs = matchs.filter((str) => { return !/(node:internal)/.test(str)  })
+                params.push("\n==>" + matchs.join("  \n==>"));
             }
             return util.format.apply(null, params);
         } catch (e) {
