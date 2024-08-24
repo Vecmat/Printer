@@ -2,11 +2,12 @@
     "extends": "@silverhand/ts-config/tsconfig.base",
     "compilerOptions": {
         "rootDir": "src",
-        "outDir": "libs",
+        "baseUrl": "src",
+        "declarationDir": "./libs/types",
+        "moduleResolution": "NodeNext",
         "declaration": true,
         "noImplicitThis": false,
-        "esModuleInterop": true,
-        "types": ["node", "jest", "jest-matcher-specific-error"]
+        "types": ["node", "jest"]
     },
     "include": ["src", "jest.config.ts", "rollup.config.ts"],
     "exclude": ["src/**/*.test.ts"]

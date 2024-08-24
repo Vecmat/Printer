@@ -300,7 +300,7 @@ export class VMLogger implements ILogger {
                 Error.captureStackTrace(this.emptyObj);
                 let stack = this.emptyObj.stack.slice(this.emptyObj.stack.lastIndexOf("printer"));
                 let matchs = stack.match(/\(.*?\)/g) || []
-                matchs = matchs.filter((str) => { return !/(node:internal)/.test(str)  })
+                matchs = matchs.filter((str:string) => { return !/(node:internal)/.test(str)  })
                 params.push("\n==>" + matchs.join("  \n==>"));
             }
             return util.format.apply(null, params);

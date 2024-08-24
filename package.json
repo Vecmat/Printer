@@ -1,13 +1,13 @@
 {
     "name": "@vecmat/printer",
     "author": "Hanrea",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "description": "printer  打印机",
     "license": "ISC",
     "type": "module",
-    "main": "./libs/index.cjs",
-    "module": "./libs/index.js",
-    "types": "./libs/index.d.ts",
+    "main": "./libs/cjs/index.cjs",
+    "module": "./libs/esm/index.mjs",
+    "types": "./libs/types/index.d.ts",
     "scripts": {
         "clean": "rm -rf dist",
         "test": "npm build:test && npx mocha test",
