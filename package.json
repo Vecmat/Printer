@@ -5,13 +5,25 @@
     "description": "printer  打印机",
     "license": "ISC",
     "type": "module",
-    "main": "./libs/cjs/index.cjs",
-    "module": "./libs/esm/index.mjs",
-    "types": "./libs/types/index.d.ts",
+    "main": "./dist/cjs/index.cjs",
+    "module": "./dist/esm/index.mjs",
+    "types": "./dist/types/index.d.ts",
+    "publishConfig": {
+        "main": "./cjs/index.cjs",
+        "module": "./esm/index.mjs",
+        "types": "./types/index.d.ts",
+        "exports": {
+            ".": {
+                "require": "./cjs/index.cjs",
+                "import": "./esm/index.mjs",
+                "types": "./types/index.d.ts"
+            }
+        }
+    },
     "scripts": {
         "clean": "rm -rf dist",
         "test": "npm build:test && npx mocha test",
-        "build": "rm -rf libs/ && tsc -p tsconfig.build.json --noEmit && rollup -c",
+        "build": "rm -rf dist/ && tsc -p tsconfig.build.json --noEmit && rollup -c",
         "compile": "tsc --project tsconfig.json && tsc-alias -p tsconfig.json",
         "deploy": "npm run build && npm publish ./dist ",
         "watch": "concurrently \"tsc -w --project tsconfig.json\" \"tsc-alias -w --project tsconfig.json\""
@@ -26,8 +38,6 @@
     },
     "devDependencies": {
         "@types/node": "^20.x.x",
-        "gulp": "^4.0.2",
-        "gulp-cli": "^2.3.0",
         "typescript": "~5.4.2",
         "tsc-alias": "~1.8.2",
         "prettier": "^3.0.0",
@@ -38,6 +48,7 @@
         "@silverhand/ts-config": "^5.0.0",
         "@silverhand/eslint-config": "^5.0.0",
         "rollup": "~4.13.0",
+        "rollup-plugin-copy": "~3.5.0",
         "rollup-plugin-summary": "~2.0.0",
         "@rollup/plugin-typescript": "11.1.0",
         "@rollup/plugin-node-resolve": "^15.0.2",
